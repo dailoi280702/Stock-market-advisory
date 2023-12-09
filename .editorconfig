@@ -1,0 +1,14 @@
+[*.{js,ts}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+break_before_braces = false
+align_multiline_braces = false
+braces_in_align = false
+keep_existing_line_breaks = true
+
+[*.{html,css}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+brace_style = "collapse-preserve-inline"
