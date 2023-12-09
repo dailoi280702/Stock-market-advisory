@@ -1,14 +1,21 @@
-[*.{js,ts}]
-indent_style = space
-indent_size = 2
-tab_width = 2
-break_before_braces = false
-align_multiline_braces = false
-braces_in_align = false
-keep_existing_line_breaks = true
+root = true
 
-[*.{html,css}]
-indent_style = space
+[*]
+charset = utf-8
+end_of_line = lf
 indent_size = 2
-tab_width = 2
-brace_style = "collapse-preserve-inline"
+indent_style = space
+insert_final_newline = true
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[*.{js,jsx,ts,tsx}]
+insert_space_before_function_parenthesis = true
+quote_type = single
+
+[*.md]
+max_line_length = 0
+trim_trailing_whitespace = false
+
+[COMMIT_EDITMSG]
+max_line_length = 0
