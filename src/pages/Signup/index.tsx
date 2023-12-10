@@ -21,7 +21,9 @@ const Signup = () => {
       for (let i = 3; i >= 0; i--) {
         setTimeout(() => {
           setMessage(
-            `We have sent you an email. Please check your inbox\nBack to signin in ${i} seconds`
+            `We have sent you an email. Please check your inbox\nBack to signin in ${i} second${
+              i > 1 ? 's' : ''
+            }`
           );
         }, (3 - i) * 1000);
       }
