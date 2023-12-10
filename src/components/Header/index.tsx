@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function Header() {
@@ -16,7 +16,7 @@ export default function Header() {
   };
   return (
     <header className="flex items-center px-4 text-xl w-full max-w-screen-xl flex-wrap justify-between mx-auto p-4">
-      header
+      <Link to="/">STOCK ADVISORY</Link>
       {user && (
         <button className="text-red-500 font-medium text-sm" onClick={handleLogout}>
           Log out

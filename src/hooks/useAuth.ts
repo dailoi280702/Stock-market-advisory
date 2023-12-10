@@ -1,8 +1,10 @@
 import {
   User,
+  browserLocalPersistence,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  setPersistence,
   signInWithEmailAndPassword,
   signOut
 } from 'firebase/auth';
@@ -11,7 +13,7 @@ import { auth } from '../firebase';
 import { useEffect } from 'react';
 import { sendEmailVerification } from 'firebase/auth/cordova';
 
-export const userAtom = atom<User | null>(null);
+export const userAtom = atom<User | null | undefined>(undefined);
 
 export const useAuth = () => {
   const [user, setUser] = useAtom(userAtom);
@@ -22,7 +24,8 @@ export const useAuth = () => {
     return sendEmailVerification(userCredential.user);
   };
 
-  const signIn = (email: string, password: string) => {
+  const signIn = async (email: string, password: string) => {
+    await setPersistence(auth, browserLocalPersistence);
     return signInWithEmailAndPassword(auth, email, password);
   };
 

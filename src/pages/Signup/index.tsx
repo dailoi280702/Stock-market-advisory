@@ -74,7 +74,7 @@ const Signup = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col py-2">
-          <label className="py-2 font-medium">Email Address</label>
+          <label className="py-2 font-bold text-sm">Email Address</label>
           <input
             onChange={(e) => setEmail(e.target.value)}
             className="border p-3 rounded-lg h-12 placeholder:text-neutral-700"
@@ -85,7 +85,7 @@ const Signup = () => {
         </div>
 
         <div className="flex flex-col py-2">
-          <label className="py-2 font-medium">Password</label>
+          <label className="py-2 font-bold text-sm">Password</label>
           <input
             onChange={(e) => setPassword(e.target.value)}
             className="border p-3 rounded-lg h-12 placeholder:text-neutral-700"

@@ -4,8 +4,12 @@ import { useAuth } from '../hooks/useAuth';
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { user } = useAuth();
 
+  if (user === undefined) {
+    return <p className="mt-10 text-center">Loading...</p>;
+  }
+
   if (!user) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/" />;
   }
 
   if (!user.emailVerified) {

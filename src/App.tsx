@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import Recover from './pages/Signin/recover';
+import News from './pages/News';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/news"
+        element={
+          <ProtectedRoute>
+            <News />
           </ProtectedRoute>
         }
       />
