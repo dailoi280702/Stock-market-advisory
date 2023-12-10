@@ -7,7 +7,7 @@ export const useFeed = (feeds: Feed[]) => {
   const [feedIndex, setFeedIndex] = useAtom(feedIndexAtom);
 
   const nextFeed = () => {
-    if (!feedIndex) return;
+    if (feedIndex == null) return;
 
     if (feedIndex + 1 < feeds.length) {
       setFeedIndex(feedIndex + 1);
@@ -15,9 +15,9 @@ export const useFeed = (feeds: Feed[]) => {
   };
 
   const previousFeed = () => {
-    if (!feedIndex) return;
+    if (feedIndex == null) return;
 
-    if (feedIndex > 1) {
+    if (feedIndex > 0) {
       setFeedIndex(feedIndex - 1);
     }
   };
