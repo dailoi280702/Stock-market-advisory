@@ -25,10 +25,20 @@ export interface Feed {
   }[];
 }
 
-const FeedPreview = ({ feed }: { feed: Feed }) => {
+type Props = {
+  feed: Feed;
+  onClick: () => void;
+};
+
+const FeedPreview = ({ feed, onClick }: Props) => {
   return (
-    <div className="rounded-2xl p-2 bg-white border border-1 border-neutral-200 shadow-lg w-full h-full flex flex-col">
-      <h2 className="mx-2 text-lg font-medium line-clamp-3 leading-tight my-2">{feed.title}</h2>
+    <div className="rounded-2xl p-2 bg-white border border-1 border-neutral-300 shadow-lg w-full h-full flex flex-col">
+      <h2
+        className="mx-2 text-lg font-medium line-clamp-3 leading-tight my-2 cursor-pointer"
+        onClick={onClick}
+      >
+        {feed.title}
+      </h2>
       <p className="flex-1" />
       <div className="flex items-center justify-between m-2 flex-wrap">
         <p className="text-sm font-medium mr-4">
@@ -41,8 +51,9 @@ const FeedPreview = ({ feed }: { feed: Feed }) => {
         </Link>
       </div>
       <img
-        className="rounded-lg border-1 border-neutral-100 overflow-hidden aspect-[16/9] object-cover"
+        className="rounded-lg border-1 border-neutral-100 overflow-hidden aspect-[16/9] object-cover cursor-pointer"
         src={feed.banner_image}
+        onClick={onClick}
       ></img>
     </div>
   );

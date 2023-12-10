@@ -1,8 +1,14 @@
 import { Link, Navigate } from 'react-router-dom';
-// import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 import { auth } from '../firebase';
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const { user } = useAuth();
+
+  if (user === undefined) {
+    return <div className="text-center my-10">Loading...</div>;
+  }
+
   if (!auth.currentUser) {
     return <Navigate to="/signin" />;
   }
