@@ -8,7 +8,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate('/');
+      navigate('/signin');
       console.log('You are logged out');
     } catch (e) {
       console.log((e as Error).message);

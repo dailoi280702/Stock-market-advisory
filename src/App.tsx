@@ -35,6 +35,11 @@ const router = createBrowserRouter(
             <News />
           </ProtectedRoute>
         }
+        loader={async () => {
+          const url =
+            'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo';
+          return fetch(url).then((res) => res.json());
+        }}
       />
     </Route>
   )

@@ -12,19 +12,20 @@
   },
   "dependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@types/node": "^20.10.4",
     "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.4",
     "firebase": "^10.7.1",
     "jotai": "^2.5.0",
     "lodash": "^4.17.21",
+    "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
-    "sort-by": "^1.2.0",
-    "match-sorter": "^6.3.1"
+    "sort-by": "^1.2.0"
   },
   "devDependencies": {
     "@heroicons/react": "^2.0.18",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
