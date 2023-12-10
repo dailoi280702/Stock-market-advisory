@@ -9,17 +9,39 @@ import Layout from './components/Layout';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
-import ProtectedRoute from './components/ProtectedRoute';
+import NoAuthRoute from './components/NoAuthRoute';
 import Recover from './pages/Signin/recover';
 import News from './pages/News';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>
       <Route path="*" element={<div>not found!</div>} />
-      <Route path="/signin" element={<Signin />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/signin/recover" element={<Recover />} />
+      <Route
+        path="/signin"
+        element={
+          <NoAuthRoute>
+            <Signin />
+          </NoAuthRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <NoAuthRoute>
+            <Signup />
+          </NoAuthRoute>
+        }
+      />
+      <Route
+        path="/signin/recover"
+        element={
+          <NoAuthRoute>
+            <Recover />
+          </NoAuthRoute>
+        }
+      />
       <Route
         path="/"
         element={
