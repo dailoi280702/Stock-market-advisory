@@ -87,7 +87,7 @@ const Feeds = ({ feeds }: { feeds: Feed[] }) => {
 
   return (
     <>
-      {feedIndex && feeds[feedIndex] && (
+      {feedIndex != null && feeds[feedIndex] && (
         <div className="bg-white/10 backdrop-blur overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full h-full flex items-center flex-col transition-all">
           <div className="w-full max-w-screen-md h-full md:h-auto mx-auto my-auto bg-white md:rounded-lg p-4 md:p-8 md:border md:border-neutral-300 md:shadow-lg">
             <Detail feed={feeds[feedIndex]} feeds={feeds} />
