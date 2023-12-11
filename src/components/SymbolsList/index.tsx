@@ -131,6 +131,10 @@ const SymbolsList = () => {
 
   return (
     <>
+      <p className="text-lg font-bold px-4 w-full max-w-screen-xl mx-auto leading-none">
+        Stock symbols
+      </p>
+
       <div className="flex items-center max-w-screen-xl mx-auto p-4 w-screen">
         <input
           onChange={(e) => setText(e.target.value)}
