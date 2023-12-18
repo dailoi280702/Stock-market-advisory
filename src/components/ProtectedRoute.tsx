@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   if (!auth.currentUser.emailVerified) {
     return (
       <p className="mx-auto px-4 py-10">
-        Please check your email{' '}
+        Please check your{' '}
         <Link
           to="https://mail.google.com/"
           className="text-blue-600 font-medium underline underline-offset-2"

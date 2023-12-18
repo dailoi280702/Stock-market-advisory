@@ -13,6 +13,7 @@ import NoAuthRoute from './components/NoAuthRoute';
 import Recover from './pages/Signin/recover';
 import News from './pages/News';
 import ProtectedRoute from './components/ProtectedRoute';
+import CompanyDetail from './pages/CompanyDetail';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,6 +62,19 @@ const router = createBrowserRouter(
           const url =
             'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo';
           return fetch(url).then((res) => res.json());
+        }}
+      />
+      <Route
+        path="/details/:symbol"
+        element={
+          <ProtectedRoute>
+            <CompanyDetail />
+          </ProtectedRoute>
+        }
+        loader={async () => {
+          return fetch(
+            'https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo'
+          ).then((res) => res.json());
         }}
       />
     </Route>

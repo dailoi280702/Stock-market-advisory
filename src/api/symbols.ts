@@ -22,6 +22,8 @@ export type getSymbolsResponse = { total: number; data: StockSymbol[] };
 const csvUrl = 'src/data/symbols.csv';
 
 export const getSymbols = async (limit: number, page: number = 1, search: string = '') => {
+  const startTime = performance.now();
+
   const response = await fetch(csvUrl);
   const csvData = await response.text();
 
@@ -71,7 +73,9 @@ export const getSymbols = async (limit: number, page: number = 1, search: string
     }
   }
 
-  console.log(data.length);
+  const endTime = performance.now();
+
+  console.log(`Call to get ${data.length} symbols int took ${endTime - startTime} milliseconds`);
 
   return new Promise((resolve) => {
     resolve({

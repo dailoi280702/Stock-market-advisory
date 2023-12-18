@@ -10,7 +10,7 @@ const News = () => {
 
   return (
     <>
-      <div className="w-full max-w-screen-xl mx-auto">
+      <div className="w-full max-w-screen-lg mx-auto">
         <p className="text-lg font-bold m-4">Market News</p>
         <ul className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
           {feeds.map((feed, i) => (

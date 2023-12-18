@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StockSymbol, getSymbols, getSymbolsResponse } from '../../api/symbols';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
 
 export type ServerState =
   | {
@@ -39,11 +40,15 @@ const SymbolsTables = ({ symbols }: { symbols: StockSymbol[] }) => {
             symbols.map((symbol) => (
               <tr className="flex flex-col items-start md:table-row text-sm" key={symbol.symbol}>
                 <td className="py-1 px-4 md:px-2 border-b font-bold w-full md:w-fit md:font-normal md:table-cell">
-                  {symbol.symbol}
+                  <Link className="hover:text-blue-500" to={`/details/${symbol.symbol}`}>
+                    {symbol.symbol}
+                  </Link>
                 </td>
                 <td className="py-1 px-4 md:px-2 md:border-b">
-                  <span className="font-medium md:hidden">Name: </span>
-                  {symbol.name}
+                  <Link className="hover:text-blue-500" to={`/details/${symbol.symbol}`}>
+                    <span className="font-medium md:hidden">Name: </span>
+                    {symbol.name}
+                  </Link>
                 </td>
                 <td className="py-1 px-4 md:px-2 md:border-b">
                   <span className="font-medium md:hidden">Last sale: </span>
@@ -111,7 +116,6 @@ const SymbolsList = () => {
       try {
         const data = await getSymbols(50, search.page, search.text);
         setServerState({ state: 'success', data });
-        console.log(data);
       } catch (e) {
         console.log(e);
         setServerState({ state: 'error', error: e as Error });
@@ -131,11 +135,11 @@ const SymbolsList = () => {
 
   return (
     <>
-      <p className="text-lg font-bold px-4 w-full max-w-screen-xl mx-auto leading-none">
+      <p className="text-lg font-bold px-4 w-full max-w-screen-lg mx-auto leading-none">
         Stock symbols
       </p>
 
-      <div className="flex items-center max-w-screen-xl mx-auto p-4 w-screen">
+      <div className="flex items-center max-w-screen-lg mx-auto p-4 w-screen">
         <input
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
