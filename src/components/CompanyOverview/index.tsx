@@ -1,5 +1,12 @@
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useEffect, useRef, useState } from 'react';
+import CompanyBasicInfo from './CompanyBasicInfo';
+import CompanyFinancialInfo from './CompanyFinacialInfo';
+import CompanyStatement from './CompanyStatement';
+import CompanyPerformance from './CompanyPerformance';
+import CompanyValuation from './CompanyValuation';
+import CompanyAnalyst from './CompanyAnalyst';
+import CompanyActivity from './CompanyActivity';
 
 type Props = {
   data: CompanyOverview;
@@ -42,242 +49,19 @@ const CompanyOverview = ({ data }: Props) => {
   const renderTabContent = (id: string) => {
     switch (id) {
       case 'basic':
-        return (
-          <>
-            <h3 className="font-medium text-2xl mb-4">Basic Information</h3>
-            <div className="grid grid-cols-2 gap-x-4">
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Symbol:</span> {data.Symbol}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Name:</span> {data.Name}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">CIK:</span> {data.CIK}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Exchange:</span> {data.Exchange}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Currency:</span> {data.Currency}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Country:</span> {data.Country}
-                </p>
-              </div>
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Sector:</span> {data.Sector}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Industry:</span> {data.Industry}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Address:</span> {data.Address}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Fiscal Year End:</span>{' '}
-                  {data.FiscalYearEnd}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Latest Quarter:</span>{' '}
-                  {data.LatestQuarter}
-                </p>
-              </div>
-            </div>
-            <p className="text-gray-800 mb-4">
-              <span className="font-bold">Description:</span> {data.Description}
-            </p>
-          </>
-        );
+        return <CompanyBasicInfo data={data} />;
       case 'financial':
-        return (
-          <>
-            <h3 className="font-medium text-2xl mb-4">Financial Metrics</h3>
-            <div className="grid grid-cols-2 gap-x-4">
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Market Cap:</span>{' '}
-                  {data.MarketCapitalization}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">EBITDA:</span> {data.EBITDA}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">P/E Ratio:</span> {data.PERatio}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">PEG Ratio:</span> {data.PEGRatio}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Book Value:</span> {data.BookValue}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Dividend Per Share:</span>{' '}
-                  {data.DividendPerShare}
-                </p>
-              </div>
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Dividend Yield:</span>{' '}
-                  {data.DividendYield}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">EPS:</span> {data.EPS}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Revenue Per Share (TTM):</span>{' '}
-                  {data.RevenuePerShareTTM}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Profit Margin:</span>{' '}
-                  {data.ProfitMargin}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Operating Margin (TTM):</span>{' '}
-                  {data.OperatingMarginTTM}
-                </p>
-              </div>
-            </div>
-          </>
-        );
-
+        return <CompanyFinancialInfo data={data} />;
       case 'statements':
-        return (
-          <>
-            <h3 className="font-medium text-2xl mb-4">Financial Statements</h3>
-            <div className="grid grid-cols-2 gap-x-4">
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Revenue (TTM):</span> {data.RevenueTTM}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Gross Profit (TTM):</span>{' '}
-                  {data.GrossProfitTTM}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Diluted EPS (TTM):</span>{' '}
-                  {data.DilutedEPSTTM}
-                </p>
-              </div>
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Quarterly Earnings Growth (YoY):</span>{' '}
-                  {data.QuarterlyEarningsGrowthYOY}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Quarterly Revenue Growth (YoY):</span>{' '}
-                  {data.QuarterlyRevenueGrowthYOY}
-                </p>
-              </div>
-            </div>
-          </>
-        );
-
+        return <CompanyStatement data={data} />;
       case 'performance':
-        return (
-          <>
-            <h3 className="font-medium text-2xl mb-4">Stock Performance</h3>
-            <div className="grid grid-cols-2 gap-x-4">
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">52-Week High:</span>{' '}
-                  {data['52WeekHigh']}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">52-Week Low:</span> {data['52WeekLow']}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">50-Day Moving Average:</span>{' '}
-                  {data['50DayMovingAverage']}
-                </p>
-              </div>
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">200-Day Moving Average:</span>{' '}
-                  {data['200DayMovingAverage']}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Shares Outstanding:</span>{' '}
-                  {data.SharesOutstanding}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Beta:</span> {data.Beta}
-                </p>
-              </div>
-            </div>
-          </>
-        );
-
+        return <CompanyPerformance data={data} />;
       case 'valuation':
-        return (
-          <>
-            <h3 className="font-medium text-2xl mb-4">Valuation Ratios</h3>
-            <div className="grid grid-cols-2 gap-x-4">
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Trailing P/E Ratio:</span>{' '}
-                  {data.TrailingPE}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Forward P/E Ratio:</span>{' '}
-                  {data.ForwardPE}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Price-to-Sales Ratio (TTM):</span>{' '}
-                  {data.PriceToSalesRatioTTM}
-                </p>
-              </div>
-              <div className="mb-4">
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Price-to-Book Ratio:</span>{' '}
-                  {data.PriceToBookRatio}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Enterprise Value to Revenue:</span>{' '}
-                  {data.EVToRevenue}
-                </p>
-                <p className="mb-2">
-                  <span className="font-bold text-gray-800">Enterprise Value to EBITDA:</span>{' '}
-                  {data.EVToEBITDA}
-                </p>
-              </div>
-            </div>
-          </>
-        );
-
+        return <CompanyValuation data={data} />;
       case 'analyst':
-        return (
-          <>
-            <h3 className="font-medium text-2xl mb-4">Analyst Recommendations</h3>
-            <div className="mb-4">
-              <p className="mb-2">
-                <span className="font-bold text-gray-800">Analyst Target Price:</span>{' '}
-                {data.AnalystTargetPrice}
-              </p>
-              {/* Add other analyst recommendations fields */}
-            </div>
-          </>
-        );
-
+        return <CompanyAnalyst data={data} />;
       case 'activity':
-        return (
-          <>
-            <h3 className="font-medium text-2xl mb-4">Recent Stock Activity</h3>
-            <div className="mb-4">
-              <p className="mb-2">
-                <span className="font-bold text-gray-800">Dividend Date:</span> {data.DividendDate}
-              </p>
-              <p className="mb-2">
-                <span className="font-bold text-gray-800">Ex-Dividend Date:</span>{' '}
-                {data.ExDividendDate}
-              </p>
-              {/* Add other recent stock activity fields */}
-            </div>
-          </>
-        );
-
+        return <CompanyActivity data={data} />;
       default:
         return null;
     }
