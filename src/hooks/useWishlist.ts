@@ -86,10 +86,6 @@ export const useWishList = () => {
         data: [...prev.data, symbol]
       };
     });
-
-    if (wishlist.state !== 'success') {
-      return;
-    }
   };
 
   const unsubcribe = (symbol: string) => {

@@ -106,7 +106,7 @@ const SymbolsTables = ({ symbols }: { symbols: StockSymbol[] }) => {
   );
 };
 
-const SymbolsList = () => {
+const SymbolsList: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = () => {
   const [serverState, setServerState] = useState<ServerState>({ state: 'loading' });
   const [search, setSearch] = useState({ page: 1, text: '' });
   const [text, setText] = useState('');

@@ -1,3 +1,5 @@
+import TradingChart from 'components/TradingChart';
+
 type Props = {
   data: CompanyOverview;
 };
@@ -33,6 +35,8 @@ const CompanyPerformance = ({ data }: Props) => {
           </p>
         </div>
       </div>
+
+      <TradingChart symbol={'IBM'} />
     </>
   );
 };
