@@ -7,12 +7,14 @@ import CompanyPerformance from './CompanyPerformance';
 import CompanyValuation from './CompanyValuation';
 import CompanyAnalyst from './CompanyAnalyst';
 import CompanyActivity from './CompanyActivity';
+import { useWishList } from 'hooks/useWishlist';
 
 type Props = {
   data: CompanyOverview;
 };
 
 const CompanyOverview = ({ data }: Props) => {
+  const { subcribe, unsubcribe, wishlist } = useWishList();
   const [activeTabs, setActiveTabs] = useState<Set<string>>(new Set(['basic', 'performance']));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => {
@@ -87,40 +89,60 @@ const CompanyOverview = ({ data }: Props) => {
 
   return (
     <div className="container mx-auto mt-8">
-      <div className="relative" ref={menuRef}>
-        <button
-          className="font-medium rounded-lg text-sm px-4 h-10 text-center inline-flex items-center hover:bg-neutral-200 border border-neutral-300"
-          type="button"
-          onClick={() => setIsMenuOpen((value) => !value)}
-        >
-          <p>Overview</p>
-          <ChevronDownIcon className="ml-2 h-4 w-4 stroke-2" />
-        </button>
+      <div className="flex justify-between items-center">
+        <div className="relative" ref={menuRef}>
+          <button
+            className="font-medium rounded-lg text-sm px-4 h-10 text-center inline-flex items-center hover:bg-neutral-200 border border-neutral-300"
+            type="button"
+            onClick={() => setIsMenuOpen((value) => !value)}
+          >
+            <p>Overview</p>
+            <ChevronDownIcon className="ml-2 h-4 w-4 stroke-2" />
+          </button>
 
-        {isMenuOpen && (
-          <div className="absolute top-full mt-2 z-10 w-48 bg-white divide-y divide-neutral-300 border border-gray-300 rounded-lg shadow">
-            <ul className="p-3 space-y-3 text-sm">
-              {tabs.map((tab) => (
-                <li key={tab.id}>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-neutral-100 border-gray-300 rounded"
-                      checked={activeTabs.has(tab.id)}
-                      onChange={() => toggleTab(tab.id)}
-                    />
-                    <label
-                      className="ms-2 text-sm font-medium text-neutral-600"
-                      onClick={() => toggleTab(tab.id)}
-                    >
-                      {tab.label}
-                    </label>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+          {isMenuOpen && (
+            <div className="absolute top-full mt-2 z-10 w-48 bg-white divide-y divide-neutral-300 border border-gray-300 rounded-lg shadow">
+              <ul className="p-3 space-y-3 text-sm">
+                {tabs.map((tab) => (
+                  <li key={tab.id}>
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        className="w-4 h-4 text-blue-600 bg-neutral-100 border-gray-300 rounded"
+                        checked={activeTabs.has(tab.id)}
+                        onChange={() => toggleTab(tab.id)}
+                      />
+                      <label
+                        className="ms-2 text-sm font-medium text-neutral-600"
+                        onClick={() => toggleTab(tab.id)}
+                      >
+                        {tab.label}
+                      </label>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {wishlist.state == 'success' ? (
+          wishlist.data.length && wishlist.data.includes(data.Symbol) ? (
+            <button
+              onClick={() => unsubcribe(data.Symbol)}
+              className="rounded-full h-10 px-4 text-sm font-medium hover:bg-neutral-200 text-red-600"
+            >
+              Remove from wishlist
+            </button>
+          ) : (
+            <button
+              onClick={() => subcribe(data.Symbol)}
+              className="rounded-full h-10 px-4 text-sm font-medium hover:bg-neutral-200 text-blue-600"
+            >
+              Add to wishlist
+            </button>
+          )
+        ) : null}
       </div>
 
       <div className="mt-8 flex flex-wrap gap-4">

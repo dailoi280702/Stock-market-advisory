@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuth } from './useAuth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from 'src/firebase';
@@ -17,10 +17,9 @@ export type ServerState<T> =
       error: Error;
     };
 
-const wishlistAtom = atom<string[]>([]);
+const wishlistAtom = atom<ServerState<string[]>>({ state: 'loading' });
 
 export const useWishList = () => {
-  const [serverState, setServerState] = useState<ServerState<string[]>>({ state: 'loading' });
   const [wishlist, setWishlist] = useAtom(wishlistAtom);
   const { user } = useAuth();
 
@@ -36,64 +35,84 @@ export const useWishList = () => {
 
         if (docSnap.exists()) {
           const user = docSnap.data() as User;
-          setWishlist(user.wishlist);
+          setWishlist({ state: 'success', data: user.wishlist });
         } else {
-          setWishlist([]);
+          setWishlist({ state: 'success', data: [] });
         }
       } catch (e) {
         console.error(e);
 
-        setServerState({ state: 'error', error: e as Error });
+        setWishlist({ state: 'error', error: e as Error });
       }
     };
-
-    getWishlist();
-  }, [setWishlist, user]);
-
-  useEffect(() => {
-    if (!user || serverState.state === 'loading') {
-      return;
-    }
 
     const updateWishlist = async () => {
-      try {
-        await setDoc(doc(db, 'users', user.uid), {
-          wishlist: wishlist
-        });
+      if (wishlist.state === 'success') {
+        try {
+          console.log('wishlist updating');
+          await setDoc(doc(db, 'users', user.uid), {
+            wishlist: wishlist.data
+          });
+        } catch (e) {
+          console.error(e);
 
-        setServerState({ state: 'success', data: wishlist });
-      } catch (e) {
-        console.error(e);
-
-        setServerState({ state: 'error', error: e as Error });
+          setWishlist({ state: 'error', error: e as Error });
+        }
       }
     };
 
-    updateWishlist();
-  }, [wishlist, serverState, user]);
+    switch (wishlist.state) {
+      case 'loading':
+        getWishlist();
+        break;
+      case 'success':
+        updateWishlist();
+        break;
+    }
+  }, [setWishlist, user, wishlist, wishlist.state]);
 
   const subcribe = (symbol: string) => {
-    if (wishlist.findIndex((item) => item === symbol) < 0) {
+    setWishlist((prev) => {
+      if (prev.state !== 'success') {
+        return prev;
+      }
+
+      if (prev.data!.findIndex((item) => item === symbol) >= 0) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        data: [...prev.data, symbol]
+      };
+    });
+
+    if (wishlist.state !== 'success') {
       return;
     }
-
-    setWishlist((prevWishlist) => [...prevWishlist, symbol]);
   };
 
   const unsubcribe = (symbol: string) => {
-    const index = wishlist.findIndex((item) => item === symbol);
-    if (index === -1) {
-      return;
-    }
+    console.log('huh');
+    setWishlist((prev) => {
+      if (prev.state !== 'success') {
+        return prev;
+      }
 
-    setWishlist((prevWishlist) => [
-      ...prevWishlist.slice(0, index),
-      ...prevWishlist.slice(index + 1)
-    ]);
+      const index = prev.data.findIndex((item) => item === symbol);
+      if (index === -1) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        data: [...prev.data.slice(0, index), ...prev.data.slice(index + 1)]
+      };
+    });
   };
 
   return {
-    serverState,
+    wishlist,
     subcribe,
     unsubcribe
   };
