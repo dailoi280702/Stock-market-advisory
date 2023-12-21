@@ -1,5 +1,5 @@
+import CompanyOverview from 'components/CompanyOverview';
 import { useLoaderData } from 'react-router-dom';
-import CompanyOverview from '../../components/CompanyOverview';
 
 const CompanyDetail = () => {
   const data = useLoaderData() as CompanyOverview;
