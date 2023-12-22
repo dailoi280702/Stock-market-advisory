@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { ServerState } from './useWishlist';
 
-type AdjustedData = {
+export type AdjustedData = {
   [date: string]: {
     '1. open': number;
     '2. high': number;
@@ -11,19 +12,6 @@ type AdjustedData = {
     '7. dividend amount': number;
   };
 };
-
-type ServerState<T> =
-  | {
-      state: 'loading';
-    }
-  | {
-      state: 'success';
-      data: T;
-    }
-  | {
-      state: 'error';
-      error: Error;
-    };
 
 export const useTradingData = (symbol: string) => {
   const [period, setPeriod] = useState<'daily' | 'weekly' | 'monthly'>('daily');

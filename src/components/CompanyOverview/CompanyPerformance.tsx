@@ -1,10 +1,13 @@
 import TradingChart from 'components/TradingChart';
+import { useTradingData } from 'hooks/useTradingData';
 
 type Props = {
   data: CompanyOverview;
 };
 
 const CompanyPerformance = ({ data }: Props) => {
+  const { tradingData } = useTradingData('IBM');
+
   return (
     <>
       <h3 className="font-medium text-2xl mb-4">Stock Performance</h3>
@@ -36,7 +39,7 @@ const CompanyPerformance = ({ data }: Props) => {
         </div>
       </div>
 
-      <TradingChart symbol={'IBM'} />
+      {tradingData.state === 'success' && <TradingChart tradingData={tradingData.data} />}
     </>
   );
 };
