@@ -98,7 +98,7 @@ const CompanyOverview = ({ data }: Props) => {
             type="button"
             onClick={() => setIsMenuOpen((value) => !value)}
           >
-            <p>Overview</p>
+            <p>Choose information type</p>
             <ChevronDownIcon className="ml-2 h-4 w-4 stroke-2" />
           </button>
 
@@ -147,7 +147,7 @@ const CompanyOverview = ({ data }: Props) => {
         ) : null}
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-4">
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
         {tabs
           .filter((tab) => activeTabs.has(tab.id))
           .map((tab) => (

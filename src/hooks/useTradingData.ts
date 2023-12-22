@@ -13,8 +13,10 @@ export type AdjustedData = {
   };
 };
 
+export type TradingPeriod = 'daily' | 'weekly' | 'monthly';
+
 export const useTradingData = (symbol: string) => {
-  const [period, setPeriod] = useState<'daily' | 'weekly' | 'monthly'>('daily');
+  const [period, setPeriod] = useState<TradingPeriod>('daily');
   const [tradingData, setTradingData] = useState<ServerState<AdjustedData>>({
     state: 'loading'
   });
@@ -44,7 +46,7 @@ export const useTradingData = (symbol: string) => {
           apiFunction === 'TIME_SERIES_DAILY_ADJUSTED'
             ? 'Time Series (Daily)'
             : apiFunction === 'TIME_SERIES_WEEKLY_ADJUSTED'
-            ? 'Weekly Time Series'
+            ? 'Weekly Adjusted Time Series'
             : 'Monthly Adjusted Time Series'
         }`;
 
