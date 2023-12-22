@@ -3,7 +3,7 @@ import { AdjustedData } from 'hooks/useTradingData';
 import { Chart, AxisOptions } from 'react-charts';
 
 type Props = {
-  tradingData: AdjustedData;
+  tradingdata: AdjustedData;
 } & React.HtmlHTMLAttributes<HTMLDivElement>;
 
 type TradingData = {
@@ -12,7 +12,7 @@ type TradingData = {
 };
 
 const TradingChart = (props: Props) => {
-  const seriesData = Object.entries(props.tradingData).map(([date, values]) => ({
+  const seriesData = Object.entries(props.tradingdata).map(([date, values]) => ({
     date: new Date(date),
     open: values['1. open'],
     close: values['4. close'],

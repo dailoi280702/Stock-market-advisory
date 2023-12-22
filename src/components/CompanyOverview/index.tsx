@@ -15,7 +15,9 @@ type Props = {
 
 const CompanyOverview = ({ data }: Props) => {
   const { subcribe, unsubcribe, wishlist } = useWishList();
-  const [activeTabs, setActiveTabs] = useState<Set<string>>(new Set(['basic', 'performance']));
+  const [activeTabs, setActiveTabs] = useState<Set<string>>(
+    new Set(['basic', 'performance', 'analyst'])
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -40,11 +42,11 @@ const CompanyOverview = ({ data }: Props) => {
 
   const tabs = [
     { id: 'basic', label: 'Basic Information' },
+    { id: 'analyst', label: 'Analyst Recommendations' },
+    { id: 'performance', label: 'Stock Performance' },
     { id: 'financial', label: 'Financial Metrics' },
     { id: 'statements', label: 'Financial Statements' },
-    { id: 'performance', label: 'Stock Performance' },
     { id: 'valuation', label: 'Valuation Ratios' },
-    { id: 'analyst', label: 'Analyst Recommendations' },
     { id: 'activity', label: 'Recent Stock Activity' }
   ];
 
