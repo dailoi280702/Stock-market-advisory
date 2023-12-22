@@ -11,6 +11,11 @@ const CompanyPerformance = ({ data }: Props) => {
   return (
     <>
       <h3 className="font-medium text-2xl mb-4">Stock Performance</h3>
+
+      {tradingData.state === 'success' && (
+        <TradingChart tradingData={tradingData.data} className="h-96 mb-4" />
+      )}
+
       <div className="grid grid-cols-2 gap-x-4">
         <div className="mb-4">
           <p className="mb-2">
@@ -38,8 +43,6 @@ const CompanyPerformance = ({ data }: Props) => {
           </p>
         </div>
       </div>
-
-      {tradingData.state === 'success' && <TradingChart tradingData={tradingData.data} />}
     </>
   );
 };

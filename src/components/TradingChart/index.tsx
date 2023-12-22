@@ -1,27 +1,3 @@
-// import { useTradingData } from 'hooks/useTradingData';
-//
-// type Props = {
-//   symbol: string;
-// } & React.HtmlHTMLAttributes<HTMLDivElement>;
-//
-// type TradingData = {
-//   date: Date;
-//   value: number;
-// };
-//
-// const TradingChart = (props: Props) => {
-//   const { tradingData } = useTradingData(props.symbol);
-//
-//   if (tradingData.state === 'success') {
-//     // todo create chart
-//     return <div {...props}>{JSON.stringify(tradingData.data)}</div>;
-//   }
-//
-//   return null;
-// };
-//
-// export default TradingChart;
-
 import React, { useMemo } from 'react';
 import { AdjustedData } from 'hooks/useTradingData';
 import { Chart, AxisOptions } from 'react-charts';
@@ -59,10 +35,10 @@ const TradingChart = (props: Props) => {
       label: 'Adjusted Close',
       data: seriesData.map(({ date, adjustedClose }) => ({ date, value: adjustedClose }))
     },
-    {
-      label: 'Volume',
-      data: seriesData.map(({ date, volume }) => ({ date, value: volume }))
-    },
+    // {
+    //   label: 'Volume',
+    //   data: seriesData.map(({ date, volume }) => ({ date, value: volume }))
+    // },
     {
       label: 'Low',
       data: seriesData.map(({ date, low }) => ({ date, value: low }))
@@ -90,13 +66,16 @@ const TradingChart = (props: Props) => {
   );
 
   return (
-    <Chart
-      options={{
-        data,
-        primaryAxis,
-        secondaryAxes
-      }}
-    />
+    <div {...props}>
+      <Chart
+        className="block"
+        options={{
+          data,
+          primaryAxis,
+          secondaryAxes
+        }}
+      />
+    </div>
   );
 };
 
