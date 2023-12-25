@@ -1,7 +1,7 @@
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import TradingChart, { ChartType } from 'components/TradingChart';
 import { TradingPeriod, useTradingData } from 'hooks/useTradingData';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Tooltip } from 'react-tooltip';
 
 type Props = {
@@ -16,6 +16,22 @@ type PeriodDropdownDrop = {
 const PeriodDropdown = ({ period: period, setPeriod }: PeriodDropdownDrop) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('click', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isMenuOpen]);
 
   const periods: { label: string; preriod: TradingPeriod }[] = [
     { label: 'Daily', preriod: 'daily' },
@@ -36,7 +52,7 @@ const PeriodDropdown = ({ period: period, setPeriod }: PeriodDropdownDrop) => {
 
       {isMenuOpen && (
         <div className="absolute top-full mt-2 z-10 w-48 bg-white divide-y divide-neutral-300 border border-gray-300 rounded-lg shadow">
-          <ul className="text-sm">
+          <ul className="text-sm py-3">
             {periods.map((p) => (
               <li
                 key={p.preriod}
@@ -67,6 +83,22 @@ const ChartTypeDropdown = ({ type, setChartType }: ChartTypeDropdownProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('click', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isMenuOpen]);
+
   const types: { label: string; type: ChartType }[] = [
     { label: 'Stock Price', type: 'stockPrice' },
     { label: 'Total Volume', type: 'companyVolume' }
@@ -85,7 +117,7 @@ const ChartTypeDropdown = ({ type, setChartType }: ChartTypeDropdownProps) => {
 
       {isMenuOpen && (
         <div className="absolute top-full mt-2 z-10 w-48 bg-white divide-y divide-neutral-300 border border-gray-300 rounded-lg shadow">
-          <ul className="text-sm">
+          <ul className="text-sm py-3">
             {types.map((t) => (
               <li
                 key={t.type}

@@ -89,7 +89,6 @@ export const useWishList = () => {
   };
 
   const unsubcribe = (symbol: string) => {
-    console.log('huh');
     setWishlist((prev) => {
       if (prev.state !== 'success') {
         return prev;

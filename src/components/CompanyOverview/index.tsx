@@ -7,14 +7,12 @@ import CompanyPerformance from './CompanyPerformance';
 import CompanyValuation from './CompanyValuation';
 import CompanyAnalyst from './CompanyAnalyst';
 import CompanyActivity from './CompanyActivity';
-import { useWishList } from 'hooks/useWishlist';
 
 type Props = {
   data: CompanyOverview;
 };
 
 const CompanyOverview = ({ data }: Props) => {
-  const { subcribe, unsubcribe, wishlist } = useWishList();
   const [activeTabs, setActiveTabs] = useState<Set<string>>(
     new Set(['basic', 'performance', 'analyst'])
   );
@@ -90,7 +88,7 @@ const CompanyOverview = ({ data }: Props) => {
   };
 
   return (
-    <div className="container mx-auto mt-8">
+    <div className="w-full mt-4">
       <div className="flex justify-between items-center">
         <div className="relative" ref={menuRef}>
           <button
@@ -127,24 +125,6 @@ const CompanyOverview = ({ data }: Props) => {
             </div>
           )}
         </div>
-
-        {wishlist.state == 'success' ? (
-          wishlist.data.length && wishlist.data.includes(data.Symbol) ? (
-            <button
-              onClick={() => unsubcribe(data.Symbol)}
-              className="rounded-full h-10 px-4 text-sm font-medium hover:bg-neutral-200 text-red-600"
-            >
-              Remove from wishlist
-            </button>
-          ) : (
-            <button
-              onClick={() => subcribe(data.Symbol)}
-              className="rounded-full h-10 px-4 text-sm font-medium hover:bg-neutral-200 text-blue-600"
-            >
-              Add to wishlist
-            </button>
-          )
-        ) : null}
       </div>
 
       <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
