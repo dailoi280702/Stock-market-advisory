@@ -60,7 +60,7 @@ const WatchlistTab = (props: Props) => {
         {...divProps}
         ref={containerRef}
         onDoubleClick={() => setIsEditing(true)}
-        className={`h-10 rounded-lg bg-white border border-neutral-300 flex items-center px-4 transition-all ${
+        className={`h-10 rounded-lg bg-white border border-neutral-300 flex items-center justify-center px-4 transition-all ${
           iscurrent ? (isEditing ? 'border-2 border-blue-600' : 'border-b-2 border-b-blue-600') : ''
         }`}
       >
@@ -76,15 +76,15 @@ const WatchlistTab = (props: Props) => {
           }}
           className="ring-0 outline-none focus:ring-0 focus:outline-none cursor-pointer"
         />
-        <div className="w-5 h-5">
+        <button className="w-6 h-6">
           {isEditing && (
             <TrashIcon
               onClick={handleDeleteClick}
               data-tooltip-id="delete-tooltip"
-              className={`w-5 h-5 text-red-600 cursor-pointer`}
+              className={`w-6 h-6 text-red-600 cursor-pointer`}
             />
           )}
-        </div>
+        </button>
       </div>
 
       {isDeleting && (

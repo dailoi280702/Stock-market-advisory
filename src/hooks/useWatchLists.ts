@@ -9,7 +9,8 @@ import {
   getDocs,
   query,
   updateDoc,
-  where
+  where,
+  writeBatch
 } from 'firebase/firestore';
 import { db } from 'src/firebase';
 import { ServerState } from './useWishlist';
@@ -88,7 +89,7 @@ export const useWatchlists = () => {
       await updateDoc(doc(db, 'watchlists', id), data);
 
       setWishlist((prev) => {
-        if (!user || prev.state !== 'success' || !prev.data.has('id')) {
+        if (!user || prev.state !== 'success' || !prev.data.has(id)) {
           return prev;
         }
 
@@ -110,7 +111,7 @@ export const useWatchlists = () => {
   };
 
   const subcribe = async (id: string, symbol: string) => {
-    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has('id')) {
+    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has(id)) {
       return;
     }
 
@@ -138,7 +139,7 @@ export const useWatchlists = () => {
   };
 
   const unsubcribe = async (id: string, symbol: string) => {
-    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has('id')) {
+    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has(id)) {
       return;
     }
 
@@ -183,12 +184,76 @@ export const useWatchlists = () => {
     }
   };
 
+  const updateWatchlistsInBatches = async (symbol: string, mChecks: Map<string, boolean>) => {
+    if (!user || mWatchlist.state !== 'success') {
+      return;
+    }
+
+    const updatedData: Map<string, string[]> = new Map();
+
+    mChecks.forEach((checked: boolean, id: string) => {
+      if (checked) {
+        if (!mWatchlist.data.has(id)) {
+          const watchlist = mWatchlist.data.get(id)!.watchlist;
+          updatedData.set(id, [...watchlist, symbol]);
+        } else {
+          updatedData.set(id, [symbol]);
+        }
+      } else {
+        if (mWatchlist.data.has(id)) {
+          const watchlist = mWatchlist.data.get(id)!.watchlist;
+          const index = watchlist.findIndex((item) => item === symbol);
+          if (index >= 0) {
+            updatedData.set(id, [...watchlist.slice(0, index), ...watchlist.slice(index + 1)]);
+          }
+        }
+      }
+    });
+
+    try {
+      const batch = writeBatch(db);
+      updatedData.forEach((data, id) => {
+        batch.update(doc(db, 'watchlists', id), { watchlist: data });
+      });
+      await batch.commit();
+
+      console.log('watchlists updated');
+
+      setWishlist((prev) => {
+        if (!user || prev.state !== 'success') {
+          return prev;
+        }
+
+        const newWatchlist = new Map(prev.data);
+
+        updatedData.forEach((data, id) => {
+          if (newWatchlist.has(id)) {
+            newWatchlist.set(id, {
+              ...newWatchlist.get(id)!,
+              watchlist: data
+            });
+          }
+        });
+
+        return {
+          ...prev,
+          data: newWatchlist
+        };
+      });
+    } catch (e) {
+      console.log(e);
+
+      setWishlist({ state: 'error', error: e as Error });
+    }
+  };
+
   return {
     mWatchlist,
     createWatchlist,
     renameWatchlist,
     subcribe,
     unsubcribe,
-    removeWatchlist
+    removeWatchlist,
+    updateWatchlistsInBatches
   };
 };
