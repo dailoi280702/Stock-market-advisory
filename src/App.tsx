@@ -14,6 +14,7 @@ import Recover from './pages/Signin/recover';
 import News from './pages/News';
 import ProtectedRoute from './components/ProtectedRoute';
 import CompanyDetail from './pages/CompanyDetail';
+import Market from 'pages/Market';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +49,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/market"
+        element={
+          <ProtectedRoute>
+            <Market />
           </ProtectedRoute>
         }
       />

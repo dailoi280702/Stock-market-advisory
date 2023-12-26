@@ -23,17 +23,16 @@ const AddWatchListModal = ({ addWatchlist, onClose }: Props) => {
 
           <div className="flex items-center justify-end gap-4 mt-8">
             <button
-              className="h-10 rounded-full px-4 text-sm font-medium text-blue-600"
+              className="h-10 rounded-full px-4 text-sm font-medium text-blue-600 hover:bg-blue-50"
               onClick={() => onClose()}
             >
               Cancel
             </button>
             <button
-              className="h-10 rounded-full px-4 text-sm font-medium text-white bg-blue-600 disabled:bg-blue-400 disabled:cursor-not-allowed"
+              className="h-10 rounded-full px-4 text-sm font-medium text-white bg-blue-600 disabled:bg-blue-400 disabled:cursor-not-allowed hover:bg-blue-500"
               onClick={() => {
                 addWatchlist(nameRef.current!.value);
               }}
-              disabled={!(nameRef.current && nameRef.current.value)}
             >
               Save
             </button>

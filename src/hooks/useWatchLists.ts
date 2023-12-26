@@ -88,14 +88,17 @@ export const useWatchlists = () => {
       await updateDoc(doc(db, 'watchlists', id), data);
 
       setWishlist((prev) => {
-        if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has('id')) {
+        if (!user || prev.state !== 'success' || !prev.data.has('id')) {
           return prev;
         }
 
-        newWatchlist = new Map(prev);
+        const newWatchlist = new Map(prev.data);
         newWatchlist.set(id, data);
 
-        return newWatchlist;
+        return {
+          ...prev,
+          newWatchlist
+        };
       });
 
       console.log('watchlist renamed');
@@ -164,12 +167,13 @@ export const useWatchlists = () => {
   };
 
   const removeWatchlist = async (id: string) => {
-    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has('id')) {
+    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has(id)) {
       return;
     }
 
     try {
       await deleteDoc(doc(db, 'watchlists', id));
+      console.log('watchlist removed');
 
       setWishlist({ state: 'loading' });
     } catch (e) {

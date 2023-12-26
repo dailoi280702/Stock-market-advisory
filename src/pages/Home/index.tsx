@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import SymbolsList from '../../components/SymbolsList';
 import Watchlists from 'components/Watchlists';
 
 export default function Home() {
@@ -10,8 +9,6 @@ export default function Home() {
       </div>
 
       <Watchlists className="w-full max-w-screen-lg mx-auto mb-8 px-4" />
-
-      <SymbolsList />
     </>
   );
 }
