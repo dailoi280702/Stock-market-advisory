@@ -3,7 +3,7 @@ import { HTMLAttributes } from 'react';
 
 type Props = {
   symbols: string[];
-  unsubcribe: (id: string, symbol: string) => void;
+  unsubcribe: (symbol: string) => void;
 } & HTMLAttributes<HTMLDivElement>;
 
 const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
@@ -11,10 +11,11 @@ const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
 
   return (
     <div {...divProps}>
+      {mSymbols.state === 'success' && <div>{JSON.stringify(mSymbols.data)}</div>}
       {mSymbols.state === 'success' && mSymbols.data.size && mSymbols.data.has(symbols) && (
         <>
           {mSymbols.data.get(symbols)!.map((symbol) => (
-            <div>{symbol.symbol}</div>
+            <div onClick={() => unsubcribe(symbol.symbol)}>{symbol.symbol}</div>
           ))}
         </>
       )}

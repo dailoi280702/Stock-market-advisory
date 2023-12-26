@@ -5,7 +5,7 @@ type Props = {
   mWatchlist: Map<string, Watchlist>;
   renameWatchlist: (id: string, name: string) => void;
   removeWatchlist: (id: string) => void;
-  setCurrentWatchlist: (watlist: Watchlist) => void;
+  setCurrentWatchlist: (id: string) => void;
 };
 
 const WatchlistTabs = ({
@@ -18,7 +18,7 @@ const WatchlistTabs = ({
 
   useEffect(() => {
     if (mWatchlist.has(current)) {
-      setCurrentWatchlist(mWatchlist.get(current)!);
+      setCurrentWatchlist(current);
     }
   }, [current, mWatchlist, setCurrentWatchlist]);
 

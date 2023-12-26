@@ -193,9 +193,11 @@ export const useWatchlists = () => {
 
     mChecks.forEach((checked: boolean, id: string) => {
       if (checked) {
-        if (!mWatchlist.data.has(id)) {
+        if (mWatchlist.data.has(id)) {
           const watchlist = mWatchlist.data.get(id)!.watchlist;
-          updatedData.set(id, [...watchlist, symbol]);
+          if (!watchlist.includes(symbol)) {
+            updatedData.set(id, [...watchlist, symbol]);
+          }
         } else {
           updatedData.set(id, [symbol]);
         }

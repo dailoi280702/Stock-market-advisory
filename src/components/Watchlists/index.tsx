@@ -10,7 +10,7 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
   const [isAddWatchlistOpen, setIsAddWatchlistOpen] = useState(false);
   const { mWatchlist, createWatchlist, renameWatchlist, unsubcribe, removeWatchlist } =
     useWatchlists();
-  const [currentWatchlist, setCurrentWatchlist] = useState<Watchlist | null>(null);
+  const [currentWatchlist, setCurrentWatchlist] = useState<string | null>(null);
 
   const nagivate = useNavigate();
 
@@ -65,7 +65,11 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
       </div>
 
       {mWatchlist.state === 'success' && currentWatchlist && (
-        <Watchlist symbols={currentWatchlist?.watchlist} unsubcribe={unsubcribe} className="mt-4" />
+        <Watchlist
+          symbols={mWatchlist.data.get(currentWatchlist)!.watchlist}
+          unsubcribe={(symbol) => unsubcribe(currentWatchlist, symbol)}
+          className="mt-4"
+        />
       )}
     </div>
   );

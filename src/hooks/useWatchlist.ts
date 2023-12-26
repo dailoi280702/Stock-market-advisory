@@ -17,8 +17,9 @@ export const useWatchlist = (symbolIds: string[]) => {
 
     const getWishlist = async () => {
       try {
-        const data = (await getMapBySymbols(symbolIds)) as Map<string[], StockSymbol[]>;
-        setMSymbols({ state: 'success', data });
+        const resp = await getMapBySymbols(symbolIds);
+        const data = resp as Map<string[], StockSymbol[]>;
+        setMSymbols({ state: 'success', data: data });
       } catch (e) {
         console.error(e);
 

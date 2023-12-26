@@ -130,8 +130,6 @@ export const getMapBySymbols = async (ids: string[]) => {
   console.log(`Call to get ${data.size} symbols took ${endTime - startTime} milliseconds`);
 
   return new Promise((resolve) => {
-    resolve({
-      data: data
-    });
+    resolve(data);
   });
 };
