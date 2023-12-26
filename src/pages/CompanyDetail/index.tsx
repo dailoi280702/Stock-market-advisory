@@ -28,6 +28,7 @@ const CompanyDetail = () => {
             </button>
           )}
         </div>
+
         <CompanyOverview data={data} />
       </div>
 

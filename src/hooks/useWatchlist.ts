@@ -4,7 +4,7 @@ import { useAuth } from './useAuth';
 import { ServerState } from './useWishlist';
 import { StockSymbol, getMapBySymbols } from 'api/symbols';
 
-const symbolsAtom = atom<ServerState<Map<string[], StockSymbol[]>>>({ state: 'loading' });
+const symbolsAtom = atom<ServerState<Map<string, StockSymbol>>>({ state: 'loading' });
 
 export const useWatchlist = (symbolIds: string[]) => {
   const [mSymbols, setMSymbols] = useAtom(symbolsAtom);
@@ -18,7 +18,7 @@ export const useWatchlist = (symbolIds: string[]) => {
     const getWishlist = async () => {
       try {
         const resp = await getMapBySymbols(symbolIds);
-        const data = resp as Map<string[], StockSymbol[]>;
+        const data = resp as Map<string, StockSymbol>;
         setMSymbols({ state: 'success', data: data });
       } catch (e) {
         console.error(e);
@@ -27,11 +27,7 @@ export const useWatchlist = (symbolIds: string[]) => {
       }
     };
 
-    switch (mSymbols.state) {
-      case 'loading':
-        getWishlist();
-        break;
-    }
+    getWishlist();
   }, [mSymbols.state, setMSymbols, symbolIds, user]);
 
   return {

@@ -39,9 +39,9 @@ const CompanyOverview = ({ data }: Props) => {
   }, [isMenuOpen]);
 
   const tabs = [
-    { id: 'basic', label: 'Basic Information' },
-    { id: 'analyst', label: 'Analyst Recommendations' },
     { id: 'performance', label: 'Stock Performance' },
+    { id: 'analyst', label: 'Analyst Recommendations' },
+    { id: 'basic', label: 'Basic Information' },
     { id: 'financial', label: 'Financial Metrics' },
     { id: 'statements', label: 'Financial Statements' },
     { id: 'valuation', label: 'Valuation Ratios' },

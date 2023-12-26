@@ -11,11 +11,12 @@ const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
 
   return (
     <div {...divProps}>
-      {mSymbols.state === 'success' && <div>{JSON.stringify(mSymbols.data)}</div>}
-      {mSymbols.state === 'success' && mSymbols.data.size && mSymbols.data.has(symbols) && (
+      {mSymbols.state === 'success' && (
         <>
-          {mSymbols.data.get(symbols)!.map((symbol) => (
-            <div onClick={() => unsubcribe(symbol.symbol)}>{symbol.symbol}</div>
+          {Array.from(mSymbols.data.entries()).map(([symbol, data]) => (
+            <div key={symbol} className="">
+              {data.name}
+            </div>
           ))}
         </>
       )}
