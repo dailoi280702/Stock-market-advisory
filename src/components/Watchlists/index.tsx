@@ -6,7 +6,7 @@ import WatchlistTabs from './WatchListsTabs';
 
 const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
   const [isAddWatchlistOpen, setIsAddWatchlistOpen] = useState(false);
-  const { createWatchlist, mWatchlist } = useWatchlists();
+  const { mWatchlist, createWatchlist, renameWatchlist } = useWatchlists();
 
   const addWatchlist = async (name: string) => {
     await createWatchlist(name);
@@ -18,7 +18,9 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
       <p className="text-lg font-bold w-full max-w-screen-lg mx-auto leading-none">Watch List</p>
 
       <div className="flex items-center flex-wrap gap-x-4 gap-y-2 mt-4">
-        {mWatchlist.state === 'success' && <WatchlistTabs mWatchlist={mWatchlist.data} />}
+        {mWatchlist.state === 'success' && (
+          <WatchlistTabs mWatchlist={mWatchlist.data} renameWatchlist={renameWatchlist} />
+        )}
 
         <button
           className="text-sm font-medium rounded-full text-blue-600 pl-3 pr-4 flex items-center gap-2 h-10 hover:bg-blue-100"

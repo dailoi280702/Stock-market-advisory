@@ -75,7 +75,7 @@ export const useWatchlists = () => {
   };
 
   const renameWatchlist = async (id: string, name: string) => {
-    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has('id')) {
+    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has(id)) {
       return;
     }
 
@@ -87,7 +87,18 @@ export const useWatchlists = () => {
 
       await updateDoc(doc(db, 'watchlists', id), data);
 
-      setWishlist({ state: 'loading' });
+      setWishlist((prev) => {
+        if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has('id')) {
+          return prev;
+        }
+
+        newWatchlist = new Map(prev);
+        newWatchlist.set(id, data);
+
+        return newWatchlist;
+      });
+
+      console.log('watchlist renamed');
     } catch (e) {
       console.error(e);
 
