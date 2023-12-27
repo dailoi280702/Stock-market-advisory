@@ -1,4 +1,9 @@
-import { ArrowUpIcon, PlayIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowUpIcon,
+  MagnifyingGlassIcon,
+  PlayIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
 import { ArrowDownIcon } from '@heroicons/react/24/solid';
 import WatchlistAnalytics from 'components/WatchlistAnalytics';
 import { useWatchlist } from 'hooks/useWatchlist';
@@ -80,7 +85,7 @@ const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
             </Link>
           ))}
 
-          {mSymbols.data.size === 0 && (
+          {mSymbols.data.size === 0 ? (
             <div className="w-full flex flex-col justify-center items-center gap-4 my-16">
               <p className="text-lg">Nothing in this watchlist yet</p>
 
@@ -89,13 +94,11 @@ const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
                 to="/market"
                 className="flex items-center justify-center gap-2 pl-3 pr-4 text-blue-500 hover:bg-blue-100 rounded-full text-sm font-medium h-10"
               >
-                <PlusIcon className="w-5 h-5 stroke-2" />
-                Add investments
+                <MagnifyingGlassIcon className="w-5 h-5 stroke-2" />
+                Find investments
               </Link>
             </div>
-          )}
-
-          {mSymbols.data.size >= 0 && (
+          ) : (
             <>
               {isAnalyzing ? (
                 <WatchlistAnalytics tickers={['AAPL', 'IBM']} className="mt-4" />

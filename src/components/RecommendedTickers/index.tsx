@@ -17,7 +17,7 @@ const RecommendedTickers = ({ watchlist, subcribe, ...divProps }: Props) => {
 
   return (
     <div {...divProps}>
-      <p className="text-base mb-2">Related to your watchlist</p>
+      <p className="text-base mb-4">Related to your watchlist</p>
 
       {mSymbols.state === 'success' && (
         <>
@@ -30,6 +30,7 @@ const RecommendedTickers = ({ watchlist, subcribe, ...divProps }: Props) => {
               <p
                 className={`px-3 py-1 rounded-lg text-white min-w-[80px] text-center w-fit truncate`}
                 style={{ backgroundColor: `${getColorFromString(data.symbol)}` }}
+                data-tooltip-id={data.symbol + '-stock-name'}
               >
                 {data.symbol}
               </p>
