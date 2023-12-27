@@ -3,7 +3,7 @@ import AddWatchListModal from 'components/Modal/AddWatchListModal';
 import { useWatchlists } from 'hooks/useWatchLists';
 import { useState } from 'react';
 import WatchlistTabs from './WatchListsTabs';
-import Watchlist from 'components/Watlist';
+import Watchlist from 'components/Watchlist';
 import { useNavigate } from 'react-router-dom';
 import { atom, useAtom } from 'jotai';
 

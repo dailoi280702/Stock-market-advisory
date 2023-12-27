@@ -1,7 +1,8 @@
-import { ArrowUpIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowUpIcon, PlayIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ArrowDownIcon } from '@heroicons/react/24/solid';
+import WatchlistAnalytics from 'components/WatchlistAnalytics';
 import { useWatchlist } from 'hooks/useWatchlist';
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { getColorFromString } from 'src/util';
@@ -12,7 +13,12 @@ type Props = {
 } & HTMLAttributes<HTMLDivElement>;
 
 const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const { mSymbols } = useWatchlist(symbols);
+
+  useEffect(() => {
+    setIsAnalyzing(false);
+  }, [symbols]);
 
   return (
     <div {...divProps}>
@@ -87,6 +93,22 @@ const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
                 Add investments
               </Link>
             </div>
+          )}
+
+          {mSymbols.data.size >= 0 && (
+            <>
+              {isAnalyzing ? (
+                <WatchlistAnalytics tickers={['AAPL', 'IBM']} className="mt-4" />
+              ) : (
+                <button
+                  className="text-sm font-medium rounded-full text-green-600 pl-3 pr-4 flex items-center gap-2 h-10 hover:bg-green-600/10 mx-auto my-2"
+                  onClick={() => setIsAnalyzing(true)}
+                >
+                  <PlayIcon className="w-5 h-5 stroke-2" />
+                  Analyze this watchlist
+                </button>
+              )}
+            </>
           )}
         </>
       )}
