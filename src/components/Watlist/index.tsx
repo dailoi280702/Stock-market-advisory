@@ -1,4 +1,4 @@
-import { ArrowUpIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowUpIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ArrowDownIcon } from '@heroicons/react/24/solid';
 import { useWatchlist } from 'hooks/useWatchlist';
 import { HTMLAttributes } from 'react';
@@ -73,6 +73,21 @@ const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
               </div>
             </Link>
           ))}
+
+          {mSymbols.data.size === 0 && (
+            <div className="w-full flex flex-col justify-center items-center gap-4 my-16">
+              <p className="text-lg">Nothing in this watchlist yet</p>
+
+              <p className="text-sm text-neutral-700">Track investments you care about here</p>
+              <Link
+                to="/market"
+                className="flex items-center justify-center gap-2 pl-3 pr-4 text-blue-500 hover:bg-blue-100 rounded-full text-sm font-medium h-10"
+              >
+                <PlusIcon className="w-5 h-5 stroke-2" />
+                Add investments
+              </Link>
+            </div>
+          )}
         </>
       )}
     </div>

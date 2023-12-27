@@ -54,7 +54,7 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
 
       {/* <hr className="h-px mt-8 mb-4 bg-neutral-300 border-0" /> */}
 
-      {mWatchlist.state === 'success' && currentWatchlist && (
+      {mWatchlist.state === 'success' && currentWatchlist && mWatchlist.data.has(currentWatchlist) && (
         <>
           <div className="flex items-center justify-between mt-8">
             <p className="text-lg font-medium w-full max-w-screen-lg mx-auto leading-none">
