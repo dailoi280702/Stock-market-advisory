@@ -98,7 +98,7 @@ export const useWatchlists = () => {
 
         return {
           ...prev,
-          newWatchlist
+          data: newWatchlist
         };
       });
 
