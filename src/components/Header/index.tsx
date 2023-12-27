@@ -35,11 +35,11 @@ export default function Header() {
           </button>
 
           <div className={`${isNavOpen ? '' : 'hidden'} w-full md:block md:w-auto`}>
-            <ul className="text-base flex flex-col p-4 space-y-2 md:p-0 md:flex-row md:space-x-4 md:space-y-0">
+            <ul className="flex flex-col p-4 space-y-2 md:p-0 md:flex-row md:space-x-4 md:space-y-0 font-medium text-sm">
               <HeaderLink to="/" text="Watchlists" />
               <HeaderLink to="/market" text="Market" />
               <HeaderLink to="/news" text="News" />
-              <button className="text-red-500 font-medium text-sm" onClick={handleLogout}>
+              <button className="text-red-500" onClick={handleLogout}>
                 Log out
               </button>
             </ul>
