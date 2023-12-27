@@ -111,88 +111,11 @@ export const useWatchlists = () => {
   };
 
   const subcribe = async (id: string, symbol: string) => {
-    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has(id)) {
-      return;
-    }
-
-    try {
-      const watchlist = mWatchlist.data.get(id)!;
-      if (watchlist.watchlist.findIndex((item) => item === symbol) >= 0) {
-        setWishlist({ state: 'error', error: new Error('Already subcribed') });
-
-        return;
-      }
-
-      const data: Watchlist = {
-        ...mWatchlist.data.get(id)!,
-        watchlist: [...watchlist.watchlist, symbol]
-      };
-
-      await updateDoc(doc(db, 'watchlists', id), data);
-
-      console.log('symbol added');
-
-      setWishlist((prev) => {
-        if (!user || prev.state !== 'success') {
-          return prev;
-        }
-
-        const newWatchlist = new Map(prev.data);
-        newWatchlist.set('id', data);
-
-        return {
-          ...prev,
-          data: newWatchlist
-        };
-      });
-    } catch (e) {
-      console.error(e);
-
-      setWishlist({ state: 'error', error: e as Error });
-    }
+    updateWatchlistsInBatches(symbol, new Map([[id, true]]));
   };
 
   const unsubcribe = async (id: string, symbol: string) => {
-    if (!user || mWatchlist.state !== 'success' || !mWatchlist.data.has(id)) {
-      return;
-    }
-
-    try {
-      const watchlist = mWatchlist.data.get(id)!;
-      const index = watchlist.watchlist.findIndex((item) => item === symbol);
-      if (index === -1) {
-        setWishlist({ state: 'error', error: new Error('not found') });
-
-        return;
-      }
-
-      const data: Watchlist = {
-        ...mWatchlist.data.get(id)!,
-        watchlist: [...watchlist.watchlist.slice(0, index), ...watchlist.watchlist.slice(index + 1)]
-      };
-
-      await updateDoc(doc(db, 'watchlists', id), data);
-
-      console.log('symbol removed');
-
-      setWishlist((prev) => {
-        if (!user || prev.state !== 'success') {
-          return prev;
-        }
-
-        const newWatchlist = new Map(prev.data);
-        newWatchlist.set('id', data);
-
-        return {
-          ...prev,
-          data: newWatchlist
-        };
-      });
-    } catch (e) {
-      console.error(e);
-
-      setWishlist({ state: 'error', error: e as Error });
-    }
+    updateWatchlistsInBatches(symbol, new Map([[id, false]]));
   };
 
   const removeWatchlist = async (id: string) => {
