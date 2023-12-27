@@ -70,7 +70,7 @@ const AnalyticsStament = ({ calculations, ...divProps }: Props) => {
 
         <div className="flex-1" />
         <InformationCircleIcon
-          className="w-5 h-5 stroke-2 text-neutral-600"
+          className="w-5 h-5 stroke-2 text-neutral-600 cursor-help"
           data-tooltip-id="analytics-summary-info"
         />
 

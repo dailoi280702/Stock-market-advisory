@@ -135,7 +135,7 @@ const CompanyOverview = ({ data }: Props) => {
           .map((tab) => (
             <div
               key={tab.id}
-              className="rounded-lg h-8 bg-neutral-200 flex items-center pl-4 pr-3 gap-2"
+              className="rounded-lg h-8 bg-neutral-200 flex items-center pl-4 pr-3 gap-2 text-sm font-medium"
             >
               {tab.label}
               <button

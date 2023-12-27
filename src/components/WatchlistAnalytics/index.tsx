@@ -20,7 +20,7 @@ const WatchlistAnalytics = ({ tickers, ...divProps }: Props) => {
         <>
           <AnalyticsStament
             calculations={serverState.data.calculations}
-            className="w-full mb-4 p-4 border rounded-md border-neutral-300"
+            className="w-full mb-4 p-4 border rounded-md border-neutral-300 text-base"
           />
 
           <p className="py-2 text-sm">Moving mean (20 days) - {tickers.join(', ')}</p>

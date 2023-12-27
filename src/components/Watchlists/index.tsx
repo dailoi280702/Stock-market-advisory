@@ -74,7 +74,7 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
           <Watchlist
             symbols={mWatchlist.data.get(currentWatchlist)!.watchlist}
             unsubcribe={(symbol) => unsubcribe(currentWatchlist, symbol)}
-            className="mt-4"
+            className="mt-4 text-sm"
           />
         </>
       )}
