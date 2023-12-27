@@ -61,7 +61,11 @@ const WatchlistTab = (props: Props) => {
         ref={containerRef}
         onDoubleClick={() => setIsEditing(true)}
         className={`h-10 rounded-lg bg-white border border-neutral-300 flex items-center justify-center px-4 transition-all ${
-          iscurrent ? (isEditing ? 'border-2 border-blue-600' : 'border-b-2 border-b-blue-600') : ''
+          iscurrent
+            ? isEditing
+              ? 'border-2 border-blue-600'
+              : 'border-b-2 border-b-blue-600 shadow'
+            : ''
         }`}
       >
         <input

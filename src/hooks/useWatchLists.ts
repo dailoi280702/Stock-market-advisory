@@ -130,7 +130,21 @@ export const useWatchlists = () => {
 
       await updateDoc(doc(db, 'watchlists', id), data);
 
-      setWishlist({ state: 'loading' });
+      console.log('symbol added');
+
+      setWishlist((prev) => {
+        if (!user || prev.state !== 'success') {
+          return prev;
+        }
+
+        const newWatchlist = new Map(prev.data);
+        newWatchlist.set('id', data);
+
+        return {
+          ...prev,
+          data: newWatchlist
+        };
+      });
     } catch (e) {
       console.error(e);
 
@@ -159,7 +173,21 @@ export const useWatchlists = () => {
 
       await updateDoc(doc(db, 'watchlists', id), data);
 
-      setWishlist({ state: 'loading' });
+      console.log('symbol removed');
+
+      setWishlist((prev) => {
+        if (!user || prev.state !== 'success') {
+          return prev;
+        }
+
+        const newWatchlist = new Map(prev.data);
+        newWatchlist.set('id', data);
+
+        return {
+          ...prev,
+          data: newWatchlist
+        };
+      });
     } catch (e) {
       console.error(e);
 

@@ -1,4 +1,4 @@
-import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useEffect, useRef, useState } from 'react';
 import CompanyBasicInfo from './CompanyBasicInfo';
 import CompanyFinancialInfo from './CompanyFinacialInfo';
@@ -89,7 +89,9 @@ const CompanyOverview = ({ data }: Props) => {
 
   return (
     <div className="w-full mt-4">
-      <div className="flex justify-between items-center">
+      <div className="flex gap-3 items-center">
+        <p className="text-lg font-bold">Stock Information</p>
+
         <div className="relative" ref={menuRef}>
           <button
             className="font-medium rounded-lg text-sm px-4 h-10 text-center inline-flex items-center hover:bg-neutral-200 border border-neutral-300"
@@ -127,7 +129,7 @@ const CompanyOverview = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
         {tabs
           .filter((tab) => activeTabs.has(tab.id))
           .map((tab) => (

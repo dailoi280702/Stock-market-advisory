@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getSymbols, getSymbolsResponse } from 'api/symbols';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import SymbolsTables from './SymbolsTable';
 
 export type ServerState =

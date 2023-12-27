@@ -29,6 +29,7 @@
       "types/*": ["./src/types/*"],
       "loaders/*": ["./src/loaders/*"],
       "src/*": ["./src/*"]
+      "util/*": ["./util/*"]
     }
   },
   "include": ["src", "types", "utils"],

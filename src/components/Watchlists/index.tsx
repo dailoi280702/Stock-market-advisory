@@ -1,16 +1,19 @@
-import { PlusIcon } from '@heroicons/react/24/solid';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import AddWatchListModal from 'components/Modal/AddWatchListModal';
 import { useWatchlists } from 'hooks/useWatchLists';
 import { useState } from 'react';
 import WatchlistTabs from './WatchListsTabs';
 import Watchlist from 'components/Watlist';
 import { useNavigate } from 'react-router-dom';
+import { atom, useAtom } from 'jotai';
+
+const currentWatchlistAtom = atom<string | null>(null);
 
 const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
   const [isAddWatchlistOpen, setIsAddWatchlistOpen] = useState(false);
   const { mWatchlist, createWatchlist, renameWatchlist, unsubcribe, removeWatchlist } =
     useWatchlists();
-  const [currentWatchlist, setCurrentWatchlist] = useState<string | null>(null);
+  const [currentWatchlist, setCurrentWatchlist] = useAtom(currentWatchlistAtom);
 
   const nagivate = useNavigate();
 
@@ -49,27 +52,31 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
         />
       )}
 
-      <hr className="h-px mt-8 mb-4 bg-neutral-300 border-0" />
-
-      <div className="flex items-center justify-between">
-        <p className="text-lg font-bold w-full max-w-screen-lg mx-auto leading-none">Watchlist</p>
-        <button
-          className="text-sm font-medium rounded-full text-blue-50 pl-3 pr-4 flex items-center gap-2 h-10 bg-blue-600 hover:bg-blue-500"
-          onClick={() => {
-            nagivate('market');
-          }}
-        >
-          <PlusIcon className="w-5 h-5 stroke-2" />
-          Investment
-        </button>
-      </div>
+      {/* <hr className="h-px mt-8 mb-4 bg-neutral-300 border-0" /> */}
 
       {mWatchlist.state === 'success' && currentWatchlist && (
-        <Watchlist
-          symbols={mWatchlist.data.get(currentWatchlist)!.watchlist}
-          unsubcribe={(symbol) => unsubcribe(currentWatchlist, symbol)}
-          className="mt-4"
-        />
+        <>
+          <div className="flex items-center justify-between mt-8">
+            <p className="text-lg font-medium w-full max-w-screen-lg mx-auto leading-none">
+              {mWatchlist.data.get(currentWatchlist)!.name}
+            </p>
+            <button
+              className="text-sm font-medium rounded-full text-blue-50 pl-3 pr-4 flex items-center gap-2 h-10 bg-blue-600 hover:bg-blue-500"
+              onClick={() => {
+                nagivate('market');
+              }}
+            >
+              <PlusIcon className="w-5 h-5 stroke-2" />
+              Investment
+            </button>
+          </div>
+
+          <Watchlist
+            symbols={mWatchlist.data.get(currentWatchlist)!.watchlist}
+            unsubcribe={(symbol) => unsubcribe(currentWatchlist, symbol)}
+            className="mt-4"
+          />
+        </>
       )}
     </div>
   );

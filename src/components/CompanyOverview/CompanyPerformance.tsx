@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import TradingChart, { ChartType } from 'components/TradingChart';
 import { TradingPeriod, useTradingData } from 'hooks/useTradingData';
 import { useEffect, useRef, useState } from 'react';

@@ -1,7 +1,12 @@
 import moment from 'moment';
 import { useFeed } from '../../hooks/useFeed';
 import { Feed } from '../FeedPreview';
-import { ChevronLeftIcon, ChevronRightIcon, LinkIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  LinkIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
 const Detail = ({ feed, feeds }: { feed: Feed; feeds: Feed[] }) => {
