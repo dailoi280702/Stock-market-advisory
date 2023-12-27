@@ -7,6 +7,7 @@ import Watchlist from 'components/Watchlist';
 import { useNavigate } from 'react-router-dom';
 import { atom, useAtom } from 'jotai';
 import RecommendedTickers from 'components/RecommendedTickers';
+import RelatedNews from 'components/RelatedNews';
 
 const currentWatchlistAtom = atom<string | null>(null);
 
@@ -25,7 +26,9 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
 
   return (
     <div {...props}>
-      <p className="text-lg font-bold w-full max-w-screen-lg mx-auto leading-none">Your lists</p>
+      <p className="text-lg font-bold w-full max-w-screen-lg mx-auto leading-none">
+        Your watchlists
+      </p>
 
       <div className="flex items-center flex-wrap gap-x-4 gap-y-2 mt-4">
         {mWatchlist.state === 'success' && mWatchlist.data.size > 0 && (
@@ -58,7 +61,7 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
       {mWatchlist.state === 'success' && currentWatchlist && mWatchlist.data.has(currentWatchlist) && (
         <>
           <div className="flex items-center justify-between mt-8">
-            <p className="text-lg w-full max-w-screen-lg mx-auto leading-none">
+            <p className="text-base w-full max-w-screen-lg mx-auto leading-none">
               {mWatchlist.data.get(currentWatchlist)!.name}
             </p>
             <button
@@ -79,13 +82,19 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
           />
           <div className="mt-8">
             {mWatchlist.data.get(currentWatchlist)!.watchlist.length > 0 && (
-              <RecommendedTickers
-                watchlist={mWatchlist.data.get(currentWatchlist)!}
-                subcribe={(symbol) => {
-                  subcribe(currentWatchlist, symbol);
-                }}
-                className="rounded-lg border border-neutral-300 p-4 w-96 text-sm"
-              />
+              <div className="flex flex-col md:flex-row w-full gap-8">
+                <RelatedNews
+                  watchlist={mWatchlist.data.get(currentWatchlist)!}
+                  className="flex-1"
+                />
+                <RecommendedTickers
+                  watchlist={mWatchlist.data.get(currentWatchlist)!}
+                  subcribe={(symbol) => {
+                    subcribe(currentWatchlist, symbol);
+                  }}
+                  className="rounded-lg border border-neutral-300 p-4 w-full md:w-96 text-sm mb-auto"
+                />
+              </div>
             )}
           </div>
         </>

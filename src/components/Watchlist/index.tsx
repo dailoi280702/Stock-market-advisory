@@ -1,9 +1,4 @@
-import {
-  ArrowUpIcon,
-  MagnifyingGlassIcon,
-  PlayIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline';
+import { ArrowUpIcon, MagnifyingGlassIcon, PlayIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ArrowDownIcon } from '@heroicons/react/24/solid';
 import WatchlistAnalytics from 'components/WatchlistAnalytics';
 import { useWatchlist } from 'hooks/useWatchlist';
@@ -41,7 +36,7 @@ const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
               >
                 {data.symbol}
               </p>
-              <p className="flex-[2] truncate mx-2" data-tooltip-id={data.symbol + '-stock-name'}>
+              <p className="flex-[4] truncate mx-2" data-tooltip-id={data.symbol + '-stock-name'}>
                 {data.name}
               </p>
               <p className="flex-1 text-right mx-2">{data.last_sale}</p>

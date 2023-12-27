@@ -28,12 +28,13 @@ const RecommendedTickers = ({ watchlist, subcribe, ...divProps }: Props) => {
               className="py-2 border-t border-neutral-300 flex items-center cursor-pointer hover:bg-neutral-100 group"
             >
               <p
-                className={`px-3 py-1 rounded-lg text-white min-w-[80px] text-center w-fit truncate`}
+                className={`px-3 py-1 rounded-lg text-white min-w-[80px] text-center w-fit truncate]`}
                 style={{ backgroundColor: `${getColorFromString(data.symbol)}` }}
                 data-tooltip-id={data.symbol + '-stock-name'}
               >
                 {data.symbol}
               </p>
+              <div className="flex-[3]" />
               <p className="flex-1 text-right mx-2">{data.last_sale}</p>
               <div className="flex flex-1">
                 <div className="flex-1" />

@@ -79,7 +79,7 @@ const WatchlistTab = (props: Props) => {
             }
           }}
           data-tooltip-id="tab-tooltip"
-          className="ring-0 outline-none focus:ring-0 focus:outline-none cursor-pointer"
+          className="ring-0 outline-none focus:ring-0 focus:outline-none cursor-pointer text-sm"
         />
         <button className="w-6 h-6">
           {isEditing && (
