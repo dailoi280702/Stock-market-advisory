@@ -6,12 +6,13 @@ import WatchlistTabs from './WatchListsTabs';
 import Watchlist from 'components/Watchlist';
 import { useNavigate } from 'react-router-dom';
 import { atom, useAtom } from 'jotai';
+import RecommendedTickers from 'components/RecommendedTickers';
 
 const currentWatchlistAtom = atom<string | null>(null);
 
 const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
   const [isAddWatchlistOpen, setIsAddWatchlistOpen] = useState(false);
-  const { mWatchlist, createWatchlist, renameWatchlist, unsubcribe, removeWatchlist } =
+  const { mWatchlist, createWatchlist, renameWatchlist, unsubcribe, subcribe, removeWatchlist } =
     useWatchlists();
   const [currentWatchlist, setCurrentWatchlist] = useAtom(currentWatchlistAtom);
 
@@ -57,7 +58,7 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
       {mWatchlist.state === 'success' && currentWatchlist && mWatchlist.data.has(currentWatchlist) && (
         <>
           <div className="flex items-center justify-between mt-8">
-            <p className="text-lg font-medium w-full max-w-screen-lg mx-auto leading-none">
+            <p className="text-lg w-full max-w-screen-lg mx-auto leading-none">
               {mWatchlist.data.get(currentWatchlist)!.name}
             </p>
             <button
@@ -76,6 +77,17 @@ const Watchlists: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = (props) =
             unsubcribe={(symbol) => unsubcribe(currentWatchlist, symbol)}
             className="mt-4 text-sm"
           />
+          <div className="mt-8">
+            {mWatchlist.data.get(currentWatchlist)!.watchlist.length > 0 && (
+              <RecommendedTickers
+                watchlist={mWatchlist.data.get(currentWatchlist)!}
+                subcribe={(symbol) => {
+                  subcribe(currentWatchlist, symbol);
+                }}
+                className="rounded-lg border border-neutral-300 p-4 w-96 text-sm"
+              />
+            )}
+          </div>
         </>
       )}
     </div>

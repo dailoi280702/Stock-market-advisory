@@ -31,7 +31,7 @@ const Watchlist = ({ symbols, unsubcribe, ...divProps }: Props) => {
               className="py-2 border-t border-neutral-300 flex items-center cursor-pointer hover:bg-neutral-100 group"
             >
               <p
-                className={`flex-0 mx-2 py-1 px-3 rounded-lg text-white min-w-[80px] text-center`}
+                className={`flex-0 mr-2 py-1 px-3 rounded-lg text-white min-w-[80px] text-center`}
                 style={{ backgroundColor: `${getColorFromString(data.symbol)}` }}
               >
                 {data.symbol}

@@ -78,6 +78,7 @@ const WatchlistTab = (props: Props) => {
               saveEdit();
             }
           }}
+          data-tooltip-id="tab-tooltip"
           className="ring-0 outline-none focus:ring-0 focus:outline-none cursor-pointer"
         />
         <button className="w-6 h-6">
@@ -100,7 +101,13 @@ const WatchlistTab = (props: Props) => {
           onClose={() => setIsDeleting(false)}
         />
       )}
-      <Tooltip id="tab-tooltip" content="Double click to enter edit mode" />
+
+      <Tooltip
+        id="tab-tooltip"
+        content="Double click to enter edit mode"
+        place="bottom"
+        delayShow={500}
+      />
       <Tooltip id="delete-tooltip" content="Double click to delete this list" />
     </>
   );
