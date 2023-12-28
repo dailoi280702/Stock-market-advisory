@@ -69,7 +69,7 @@ const router = createBrowserRouter(
         }
         loader={async () => {
           const url =
-            'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo';
+            'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=COIN,CRYPTO:BTC,FOREX:USD&time_from=20220410T0130&limit=1000&apikey=demo';
           return fetch(url).then((res) => res.json());
         }}
       />

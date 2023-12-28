@@ -28,7 +28,7 @@
       "components/*": ["./src/components/*"],
       "types/*": ["./src/types/*"],
       "loaders/*": ["./src/loaders/*"],
-      "src/*": ["./src/*"]
+      "src/*": ["./src/*"],
       "util/*": ["./util/*"]
     }
   },
